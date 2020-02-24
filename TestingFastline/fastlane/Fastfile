@@ -15,6 +15,7 @@
 
 default_platform(:ios)
 app_name = "BankingFalstlineTesting"
+app_directory = "."
 platform :ios do
   desc "Description of what the lane does"
   lane :custom_lane do
@@ -55,7 +56,7 @@ platform :ios do
       clean: false,
       scheme: "TestingFastline",
       configuration: "Release",
-      output_directory: "/Users/ranjithvanaparthi/Documents",
+      output_directory: "#{app_directory}",
       output_name: "#{app_name}release.ipa",
       export_method: "development",
       include_bitcode: false
@@ -63,13 +64,13 @@ platform :ios do
   end
 
   lane :cd do
-    #build
+    build
     appcenter_upload(
   api_token: "9451746a37c03f0af1fe05960e5d51cf8b41e7f5",#"02eb65f199c7f104680dc2dbc318f2d7e4e638ad",
   owner_name: "rvanaparthi2107",
   owner_type: "organization", # Default is user - set to organization for appcenter organizations
   app_name: "np",
-  file: "/Users/ranjithvanaparthi/Documents/#{app_name}release.ipa",
+  file: "#{app_directory}/#{app_name}release.ipa",
   notify_testers: false,
   app_display_name: "np" # Set to false if you don't want to notify testers of your new release (default: `false`)
 )
