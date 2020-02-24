@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='TestingFastlineTests.xctest' tests='4' failures='0'>
+  <testsuite name='TestingFastlineUITests.TestingFastlineUITests' tests='2' failures='0'>
+    <testcase classname='TestingFastlineUITests.TestingFastlineUITests' name='testExample' time='2.080'/>
+    <testcase classname='TestingFastlineUITests.TestingFastlineUITests' name='testLaunchPerformance' time='16.273'/>
+  </testsuite>
+  <testsuite name='TestingFastlineTests.TestingFastlineTests' tests='2' failures='0'>
+    <testcase classname='TestingFastlineTests.TestingFastlineTests' name='testExample' time='0.001'/>
+    <testcase classname='TestingFastlineTests.TestingFastlineTests' name='testPerformanceExample' time='0.263'/>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,84 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+app_name = "BankingFalstlineTesting"
+platform :ios do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+
+  lane :clean_Project do
+    xcclean
+  end
+
+  lane :compile do
+
+        gym(
+          scheme: "TestingFastline",
+          skip_archive: true,
+          skip_package_ipa: true,
+          include_bitcode: false
+    )
+  end
+
+  lane :tests do
+
+    run_tests(
+  scheme: "TestingFastline",
+  clean: false
+)
+  end
+
+
+  lane :build do
+    clean_Project
+    automatic_code_signing(
+        path: "TestingFastline.xcodeproj",
+        use_automatic_signing: true
+    )
+    tests
+    gym(
+      clean: false,
+      scheme: "TestingFastline",
+      configuration: "Release",
+      output_directory: "/Users/ranjithvanaparthi/Documents",
+      output_name: "#{app_name}release.ipa",
+      export_method: "development",
+      include_bitcode: false
+    )
+  end
+
+  lane :cd do
+    #build
+    appcenter_upload(
+  api_token: "9451746a37c03f0af1fe05960e5d51cf8b41e7f5",#"02eb65f199c7f104680dc2dbc318f2d7e4e638ad",
+  owner_name: "rvanaparthi2107",
+  owner_type: "organization", # Default is user - set to organization for appcenter organizations
+  app_name: "np",
+  file: "/Users/ranjithvanaparthi/Documents/#{app_name}release.ipa",
+  notify_testers: false,
+  app_display_name: "np" # Set to false if you don't want to notify testers of your new release (default: `false`)
+)
+  end
+
+  lane :beta do
+    # disable_automatic_code_signing(path: "banking.xcodeproj")
+    build_release
+    enable_automatic_code_signing(path: "banking.xcodeproj")
+  end
+
+end
